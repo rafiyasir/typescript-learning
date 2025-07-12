@@ -14,3 +14,8 @@ const myCar = carMakers.pop();
 carMakers.map((car: string): string => {
 	return car.toUpperCase();
 });
+
+const importantDates: (Date | string)[] = [new Date()];
+importantDates.push(new Date());
+importantDates.push("2025-07-12");
+// importantDates.push(100)
