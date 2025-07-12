@@ -13,7 +13,7 @@ let truths: boolean[] = [true, false, true];
 
 class Car {}
 
-let car: Car = new Car();
+// let car: Car = new Car();
 
 let point: { x: number; y: number } = {
 	x: 10,
