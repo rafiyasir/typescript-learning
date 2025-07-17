@@ -12,9 +12,9 @@ class NumbersCollection {
         return this.data[leftIndex] > this.data[rightIndex];
     }
     swap(leftIndex, rightIndex) {
-        const lefHand = this.data[leftIndex];
+        const leftHand = this.data[leftIndex];
         this.data[leftIndex] = this.data[rightIndex];
-        this.data[rightIndex] = lefHand;
+        this.data[rightIndex] = leftHand;
     }
 }
 exports.NumbersCollection = NumbersCollection;
