@@ -1,9 +1,11 @@
+import { CsvFileReader } from "./CsvFileReader";
 import { MatchReader } from "./MatchReader";
 import { MatchResut } from "./MatchResult";
 
-const reader = new MatchReader("football.csv");
-reader.read();
-console.log(reader.data);
+const csvFileReader = new CsvFileReader("football.csv");
+const matchReader = new MatchReader(csvFileReader);
+matchReader.load();
+// console.log(reader.data);
 
 // const homeWin = "H";
 // const awayWin = "A";
@@ -11,7 +13,7 @@ console.log(reader.data);
 
 let manUnitedWins = 0;
 
-for (let match of reader.data) {
+for (let match of matchReader.matches) {
 	if (match[1] === "Man United" && match[5] === MatchResut.HomeWin) {
 		manUnitedWins++;
 	} else if (match[2] === "Man United" && match[5] === MatchResut.AwayWin) {
