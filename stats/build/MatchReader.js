@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MatchReader = void 0;
 const CsvFileReader_1 = require("./CsvFileReader");
 const utils_1 = require("./utils");
 class MatchReader extends CsvFileReader_1.CsvFileReader {
@@ -15,3 +16,4 @@ class MatchReader extends CsvFileReader_1.CsvFileReader {
         ];
     }
 }
+exports.MatchReader = MatchReader;
