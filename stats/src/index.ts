@@ -26,5 +26,5 @@ matchReader.load();
 // }
 
 // console.log(`Man United won ${manUnitedWins} games`);
-const summary = new Summary(new WinsAnalysis("Man United"), new HtmlReport());
+const summary = Summary.winsAnalysisWithHtmlReport("Man United");
 summary.buildAndPrintReport(matchReader.matches);
