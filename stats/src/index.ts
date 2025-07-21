@@ -2,6 +2,7 @@ import { WinsAnalysis } from "./analyzers/WinsAnalysis";
 import { CsvFileReader } from "./CsvFileReader";
 import { MatchReader } from "./MatchReader";
 import { ConsoleReport } from "./reportTargets/ConsoleReport";
+import { HtmlReport } from "./reportTargets/HtmlReport";
 import { Summary } from "./Summary";
 // import { MatchResut } from "./MatchResult";
 
@@ -25,8 +26,5 @@ matchReader.load();
 // }
 
 // console.log(`Man United won ${manUnitedWins} games`);
-const summary = new Summary(
-	new WinsAnalysis("Man United"),
-	new ConsoleReport()
-);
+const summary = new Summary(new WinsAnalysis("Man United"), new HtmlReport());
 summary.buildAndPrintReport(matchReader.matches);
