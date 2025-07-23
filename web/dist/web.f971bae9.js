@@ -678,6 +678,8 @@ user.set({
     name: "RAFI"
 });
 console.log(user.get("name"));
+user.on("change", ()=>{});
+console.log(user);
 
 },{"./models/User":"1GX73"}],"1GX73":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -694,7 +696,11 @@ class User {
     set(update) {
         Object.assign(this.data, update);
     }
-    on(eventName, callback) {}
+    on(eventName, callback) {
+        const handlers = this.events[eventName] || [];
+        handlers.push(callback);
+        this.events[eventName] = handlers;
+    }
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}],"9vpc5":[function(require,module,exports,__globalThis) {
