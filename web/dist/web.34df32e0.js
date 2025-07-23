@@ -682,14 +682,14 @@ user.set({
     age: 29.5
 });
 console.log(user.get("name"));
-user.on("change", ()=>{
+user.events.on("change", ()=>{
     console.log("Change #1");
 });
-user.on("change", ()=>{
+user.events.on("change", ()=>{
     console.log("Change #2");
 });
 console.log(user);
-user.trigger("change");
+user.events.trigger("change");
 user.save();
 setTimeout(()=>{
     console.log(user);
@@ -706,9 +706,11 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "User", ()=>User);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _eventing = require("./Eventing");
 class User {
     constructor(data){
         this.data = data;
+        this.events = new (0, _eventing.Eventing)();
     }
     get(propName) {
         return this.data[propName];
@@ -728,7 +730,7 @@ class User {
     }
 }
 
-},{"axios":"h9cXK","@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}],"h9cXK":[function(require,module,exports,__globalThis) {
+},{"axios":"h9cXK","@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5","./Eventing":"eBJmf"}],"h9cXK":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>(0, _axiosJsDefault.default));
@@ -5535,6 +5537,28 @@ Object.entries(HttpStatusCode).forEach(([key, value])=>{
     HttpStatusCode[value] = key;
 });
 exports.default = HttpStatusCode;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}],"eBJmf":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Eventing", ()=>Eventing);
+class Eventing {
+    on(eventName, callback) {
+        const handlers = this.events[eventName] || [];
+        handlers.push(callback);
+        this.events[eventName] = handlers;
+    }
+    trigger(eventName) {
+        const handlers = this.events[eventName];
+        if (!handlers || handlers.length === 0) return;
+        handlers.forEach((callback)=>{
+            callback();
+        });
+    }
+    constructor(){
+        this.events = {};
+    }
+}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}]},["1IIxJ","gH3Lb"], "gH3Lb", "parcelRequire2d1f", {})
 
