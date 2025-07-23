@@ -693,6 +693,7 @@ class User {
     set(update) {
         Object.assign(this.data, update);
     }
+    on(eventName, callback) {}
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}],"9vpc5":[function(require,module,exports,__globalThis) {
