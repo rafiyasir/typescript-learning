@@ -674,6 +674,10 @@ const user = new (0, _user.User)({
 });
 console.log(user.get("name"));
 console.log(user.get("age"));
+user.set({
+    name: "RAFI"
+});
+console.log(user.get("name"));
 
 },{"./models/User":"1GX73"}],"1GX73":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -685,6 +689,9 @@ class User {
     }
     get(propName) {
         return this.data[propName];
+    }
+    set(update) {
+        Object.assign(this.data, update);
     }
 }
 
