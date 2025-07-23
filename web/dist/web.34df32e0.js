@@ -667,13 +667,79 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"gH3Lb":[function(require,module,exports,__globalThis) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _axios = require("axios");
-var _axiosDefault = parcelHelpers.interopDefault(_axios);
-(0, _axiosDefault.default).post("http://localhost:3000/user", {
+var _user = require("./models/User");
+const user = new (0, _user.User)({
+    id: 1,
     name: "Rafi",
     age: 30
 });
+console.log(user.get("name"));
+console.log(user.get("age"));
+user.set({
+    name: "RAFI"
+});
+user.set({
+    age: 29.5
+});
+console.log(user.get("name"));
+user.on("change", ()=>{
+    console.log("Change #1");
+});
+user.on("change", ()=>{
+    console.log("Change #2");
+});
+console.log(user);
+user.trigger("change");
+user.save();
+setTimeout(()=>{
+    console.log(user);
+}, 4000);
+const newUser = new (0, _user.User)({
+    name: "New",
+    age: 333
+});
+newUser.save();
+
+},{"./models/User":"hjS3N"}],"hjS3N":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "User", ()=>User);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+class User {
+    constructor(data){
+        this.data = data;
+        this.events = {};
+    }
+    get(propName) {
+        return this.data[propName];
+    }
+    set(update) {
+        Object.assign(this.data, update);
+    }
+    on(eventName, callback) {
+        const handlers = this.events[eventName] || [];
+        handlers.push(callback);
+        this.events[eventName] = handlers;
+    }
+    trigger(eventName) {
+        const handlers = this.events[eventName];
+        if (!handlers || handlers.length === 0) return;
+        handlers.forEach((callback)=>{
+            callback();
+        });
+    }
+    fetch() {
+        (0, _axiosDefault.default).get(`http://localhost:3000/users/${this.get("id")}`).then((response)=>{
+            this.set(response.data);
+        });
+    }
+    save() {
+        const id = this.get("id");
+        if (id) (0, _axiosDefault.default).put(`http://localhost:3000/user/${id}`, this.data);
+        else (0, _axiosDefault.default).post("http://localhost:3000/user", this.data);
+    }
+}
 
 },{"axios":"h9cXK","@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}],"h9cXK":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
