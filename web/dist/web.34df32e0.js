@@ -780,7 +780,6 @@ parcelHelpers.export(exports, "Sync", ()=>Sync);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 class Sync {
-    // rootUrl: string = "http://localhost:3000/user";
     constructor(rootUrl){
         this.rootUrl = rootUrl;
     }
