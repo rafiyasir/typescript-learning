@@ -8,15 +8,15 @@ user.set({ name: "RAFI" });
 user.set({ age: 29.5 });
 console.log(user.get("name"));
 
-user.on("change", () => {
+user.events.on("change", () => {
 	console.log("Change #1");
 });
-user.on("change", () => {
+user.events.on("change", () => {
 	console.log("Change #2");
 });
 
 console.log(user);
-user.trigger("change");
+user.events.trigger("change");
 
 user.save();
 
