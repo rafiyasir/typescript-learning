@@ -10,13 +10,16 @@ console.log(user.get("age"));
 
 user.on("change", () => {
 	console.log("Change #1");
+	console.log(user);
 });
-user.on("change", () => {
-	console.log("Change #2");
-});
-user.set({ name: "RAFI" });
-user.set({ age: 29.5 });
-console.log(user.get("name"));
+// user.on("change", () => {
+// 	console.log("Change #2");
+// });
+// user.set({ name: "RAFI" });
+// user.set({ age: 29.5 });
+// console.log(user.get("name"));
+
+user.fetch();
 
 // console.log(user);
 // user.trigger("change");
