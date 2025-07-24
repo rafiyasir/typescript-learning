@@ -673,32 +673,24 @@ const user = new (0, _user.User)({
     name: "Rafi",
     age: 30
 });
-console.log(user.get("name"));
-console.log(user.get("age"));
-user.set({
-    name: "RAFI"
-});
-user.set({
-    age: 29.5
-});
-console.log(user.get("name"));
-user.events.on("change", ()=>{
+// console.log(user.get("name"));
+// console.log(user.get("age"));
+// user.set({ name: "RAFI" });
+// user.set({ age: 29.5 });
+// console.log(user.get("name"));
+user.on("change", ()=>{
     console.log("Change #1");
 });
-user.events.on("change", ()=>{
+user.on("change", ()=>{
     console.log("Change #2");
 });
 console.log(user);
-user.events.trigger("change");
-user.save();
+user.trigger("change");
+// user.save();
 setTimeout(()=>{
     console.log(user);
-}, 4000);
-const newUser = new (0, _user.User)({
-    name: "New",
-    age: 333
-});
-newUser.save();
+}, 4000); // const newUser = new User({ name: "New", age: 333 });
+ // newUser.save();
 
 },{"./models/User":"hjS3N"}],"hjS3N":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -714,6 +706,15 @@ class User {
         this.events = new (0, _eventing.Eventing)();
         this.sync = new (0, _sync.Sync)(rootUrl);
         this.attributes = new (0, _attributes.Attributes)(data);
+    }
+    get on() {
+        return this.events.on;
+    }
+    get trigger() {
+        return this.events.trigger;
+    }
+    get get() {
+        return this.attributes.get;
     }
 }
 
