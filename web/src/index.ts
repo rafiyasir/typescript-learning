@@ -1,28 +1,28 @@
 import { User } from "./models/User";
 
 const user = new User({ id: 1, name: "Rafi", age: 30 });
-console.log(user.get("name"));
-console.log(user.get("age"));
+// console.log(user.get("name"));
+// console.log(user.get("age"));
 
-user.set({ name: "RAFI" });
-user.set({ age: 29.5 });
-console.log(user.get("name"));
+// user.set({ name: "RAFI" });
+// user.set({ age: 29.5 });
+// console.log(user.get("name"));
 
-user.events.on("change", () => {
+user.on("change", () => {
 	console.log("Change #1");
 });
-user.events.on("change", () => {
+user.on("change", () => {
 	console.log("Change #2");
 });
 
 console.log(user);
-user.events.trigger("change");
+user.trigger("change");
 
-user.save();
+// user.save();
 
 setTimeout(() => {
 	console.log(user);
 }, 4000);
 
-const newUser = new User({ name: "New", age: 333 });
-newUser.save();
+// const newUser = new User({ name: "New", age: 333 });
+// newUser.save();
