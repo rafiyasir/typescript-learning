@@ -673,8 +673,8 @@ const user = new (0, _user.User)({
     name: "Rafi",
     age: 30
 });
-// console.log(user.get("name"));
-// console.log(user.get("age"));
+console.log(user.get("name"));
+console.log(user.get("age"));
 // user.set({ name: "RAFI" });
 // user.set({ age: 29.5 });
 // console.log(user.get("name"));
@@ -753,11 +753,6 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Eventing", ()=>Eventing);
 class Eventing {
-    on(eventName, callback) {
-        const handlers = this.events[eventName] || [];
-        handlers.push(callback);
-        this.events[eventName] = handlers;
-    }
     trigger(eventName) {
         const handlers = this.events[eventName];
         if (!handlers || handlers.length === 0) return;
@@ -767,6 +762,11 @@ class Eventing {
     }
     constructor(){
         this.events = {};
+        this.on = (eventName, callback)=>{
+            const handlers = this.events[eventName] || [];
+            handlers.push(callback);
+            this.events[eventName] = handlers;
+        };
     }
 }
 
@@ -5575,12 +5575,12 @@ parcelHelpers.export(exports, "Attributes", ()=>Attributes);
 class Attributes {
     constructor(data){
         this.data = data;
-    }
-    get(key) {
-        return this.data[key];
-    }
-    set(update) {
-        Object.assign(this.data, update);
+        this.get = (key)=>{
+            return this.data[key];
+        };
+        this.set = (update)=>{
+            Object.assign(this.data, update);
+        };
     }
 }
 
