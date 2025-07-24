@@ -12,17 +12,20 @@ user.on("change", () => {
 	console.log("Change #1");
 	console.log(user);
 });
-// user.on("change", () => {
-// 	console.log("Change #2");
-// });
-// user.set({ name: "RAFI" });
-// user.set({ age: 29.5 });
-// console.log(user.get("name"));
+
+user.set({ name: "RAFI UZZAMA" });
+user.set({ age: 29.6 });
+console.log(user.get("name"));
+user.on("save", () => {
+	console.log("Save #1");
+	console.log(user);
+});
 
 user.fetch();
+user.save();
 
 // console.log(user);
-// user.trigger("change");
+user.trigger("save");
 
 // user.save();
 
