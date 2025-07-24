@@ -684,12 +684,19 @@ user.on("change", ()=>{
 user.on("change", ()=>{
     console.log("Change #2");
 });
-console.log(user);
-user.trigger("change");
-// user.save();
-setTimeout(()=>{
-    console.log(user);
-}, 4000); // const newUser = new User({ name: "New", age: 333 });
+user.set({
+    name: "RAFI"
+});
+user.set({
+    age: 29.5
+});
+console.log(user.get("name")); // console.log(user);
+ // user.trigger("change");
+ // user.save();
+ // setTimeout(() => {
+ // 	console.log(user);
+ // }, 4000);
+ // const newUser = new User({ name: "New", age: 333 });
  // newUser.save();
 
 },{"./models/User":"hjS3N"}],"hjS3N":[function(require,module,exports,__globalThis) {
@@ -715,6 +722,10 @@ class User {
     }
     get get() {
         return this.attributes.get;
+    }
+    set(update) {
+        this.attributes.set(update);
+        this.events.trigger("change");
     }
 }
 
