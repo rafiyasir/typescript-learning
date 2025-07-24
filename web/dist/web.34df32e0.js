@@ -706,22 +706,18 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "User", ()=>User);
 var _eventing = require("./Eventing");
 var _sync = require("./Sync");
+var _attributes = require("./Attributes");
 const rootUrl = "http://localhost:3000/user";
 class User {
     constructor(data){
         this.data = data;
         this.events = new (0, _eventing.Eventing)();
         this.sync = new (0, _sync.Sync)(rootUrl);
-    }
-    get(propName) {
-        return this.data[propName];
-    }
-    set(update) {
-        Object.assign(this.data, update);
+        this.attributes = new (0, _attributes.Attributes)(data);
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5","./Eventing":"eBJmf","./Sync":"f5dN4"}],"9vpc5":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5","./Eventing":"eBJmf","./Sync":"f5dN4","./Attributes":"cDuwM"}],"9vpc5":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -5570,6 +5566,22 @@ Object.entries(HttpStatusCode).forEach(([key, value])=>{
     HttpStatusCode[value] = key;
 });
 exports.default = HttpStatusCode;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}],"cDuwM":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Attributes", ()=>Attributes);
+class Attributes {
+    constructor(data){
+        this.data = data;
+    }
+    get(key) {
+        return this.data[key];
+    }
+    set(update) {
+        Object.assign(this.data, update);
+    }
+}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}]},["1IIxJ","gH3Lb"], "gH3Lb", "parcelRequire2d1f", {})
 
