@@ -1,19 +1,19 @@
 {
-	"users": [
-		{
-			"id": 1,
-			"name": "RAFI",
-			"age": 29.5
-		},
-		{
-			"name": "New",
-			"age": 333,
-			"id": 2
-		},
-		{
-			"name": "New",
-			"age": 333,
-			"id": 3
-		}
-	]
+  "users": [
+    {
+      "id": 1,
+      "name": "RAFI UZZAMA",
+      "age": 29.6
+    },
+    {
+      "name": "New",
+      "age": 333,
+      "id": 2
+    },
+    {
+      "name": "New",
+      "age": 333,
+      "id": 3
+    }
+  ]
 }

@@ -682,15 +682,21 @@ user.on("change", ()=>{
     console.log("Change #1");
     console.log(user);
 });
-// user.on("change", () => {
-// 	console.log("Change #2");
-// });
-// user.set({ name: "RAFI" });
-// user.set({ age: 29.5 });
-// console.log(user.get("name"));
-user.fetch(); // console.log(user);
- // user.trigger("change");
- // user.save();
+user.set({
+    name: "RAFI UZZAMA"
+});
+user.set({
+    age: 29.6
+});
+console.log(user.get("name"));
+user.on("save", ()=>{
+    console.log("Save #1");
+    console.log(user);
+});
+user.fetch();
+user.save();
+// console.log(user);
+user.trigger("save"); // user.save();
  // setTimeout(() => {
  // 	console.log(user);
  // }, 4000);
@@ -732,6 +738,13 @@ class User {
             this.set(response.data);
         });
     }
+    save() {
+        this.sync.save(this.attributes.getAll()).then((response)=>{
+            this.trigger("save");
+        }).catch(()=>{
+            this.trigger("error");
+        });
+    }
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5","./Eventing":"eBJmf","./Sync":"f5dN4","./Attributes":"cDuwM"}],"9vpc5":[function(require,module,exports,__globalThis) {
@@ -769,19 +782,19 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "Eventing", ()=>Eventing);
 class Eventing {
-    trigger(eventName) {
-        const handlers = this.events[eventName];
-        if (!handlers || handlers.length === 0) return;
-        handlers.forEach((callback)=>{
-            callback();
-        });
-    }
     constructor(){
         this.events = {};
         this.on = (eventName, callback)=>{
             const handlers = this.events[eventName] || [];
             handlers.push(callback);
             this.events[eventName] = handlers;
+        };
+        this.trigger = (eventName)=>{
+            const handlers = this.events[eventName];
+            if (!handlers || handlers.length === 0) return;
+            handlers.forEach((callback)=>{
+                callback();
+            });
         };
     }
 }
@@ -5597,6 +5610,9 @@ class Attributes {
         this.set = (update)=>{
             Object.assign(this.data, update);
         };
+    }
+    getAll() {
+        return this.data;
     }
 }
 
