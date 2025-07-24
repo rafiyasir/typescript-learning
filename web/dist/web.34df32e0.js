@@ -680,17 +680,15 @@ console.log(user.get("age"));
 // console.log(user.get("name"));
 user.on("change", ()=>{
     console.log("Change #1");
+    console.log(user);
 });
-user.on("change", ()=>{
-    console.log("Change #2");
-});
-user.set({
-    name: "RAFI"
-});
-user.set({
-    age: 29.5
-});
-console.log(user.get("name")); // console.log(user);
+// user.on("change", () => {
+// 	console.log("Change #2");
+// });
+// user.set({ name: "RAFI" });
+// user.set({ age: 29.5 });
+// console.log(user.get("name"));
+user.fetch(); // console.log(user);
  // user.trigger("change");
  // user.save();
  // setTimeout(() => {
@@ -706,7 +704,7 @@ parcelHelpers.export(exports, "User", ()=>User);
 var _eventing = require("./Eventing");
 var _sync = require("./Sync");
 var _attributes = require("./Attributes");
-const rootUrl = "http://localhost:3000/user";
+const rootUrl = "http://localhost:3000/users";
 class User {
     constructor(data){
         this.data = data;
@@ -726,6 +724,13 @@ class User {
     set(update) {
         this.attributes.set(update);
         this.events.trigger("change");
+    }
+    fetch() {
+        const id = this.attributes.get("id");
+        if (typeof id !== "number") throw new Error("Cannot fetch without an id");
+        this.sync.fetch(id).then((response)=>{
+            this.set(response.data);
+        });
     }
 }
 
