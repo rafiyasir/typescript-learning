@@ -667,6 +667,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"gH3Lb":[function(require,module,exports,__globalThis) {
+var _collection = require("./models/Collection");
 var _user = require("./models/User");
 const user = (0, _user.User).buildUser({
     id: 1,
@@ -696,14 +697,21 @@ user.on("save", ()=>{
 user.fetch();
 user.save();
 // console.log(user);
-user.trigger("save"); // user.save();
- // setTimeout(() => {
- // 	console.log(user);
- // }, 4000);
- // const newUser = new User({ name: "New", age: 333 });
- // newUser.save();
+user.trigger("save");
+// user.save();
+// setTimeout(() => {
+// 	console.log(user);
+// }, 4000);
+// const newUser = new User({ name: "New", age: 333 });
+// newUser.save();
+const collection = new (0, _collection.Collection)("http://localhost:3000/users");
+collection.on("change", ()=>{
+    console.log("Collection: ");
+    console.log(collection);
+});
+collection.fetch();
 
-},{"./models/User":"hjS3N"}],"hjS3N":[function(require,module,exports,__globalThis) {
+},{"./models/User":"hjS3N","./models/Collection":"6CYqD"}],"hjS3N":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "User", ()=>User);
@@ -5626,6 +5634,37 @@ class Eventing {
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}]},["1IIxJ","gH3Lb"], "gH3Lb", "parcelRequire2d1f", {})
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}],"6CYqD":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Collection", ()=>Collection);
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _eventing = require("./Eventing");
+var _user = require("./User");
+class Collection {
+    constructor(rootUrl){
+        this.rootUrl = rootUrl;
+        this.models = [];
+        this.events = new (0, _eventing.Eventing)();
+    }
+    get on() {
+        return this.events.on;
+    }
+    get trigger() {
+        return this.events.trigger;
+    }
+    fetch() {
+        (0, _axiosDefault.default).get(this.rootUrl).then((response)=>{
+            response.data.forEach((data)=>{
+                const user = (0, _user.User).buildUser(data);
+                this.models.push(user);
+            });
+            this.trigger("change");
+        });
+    }
+}
+
+},{"axios":"h9cXK","./Eventing":"eBJmf","./User":"hjS3N","@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}]},["1IIxJ","gH3Lb"], "gH3Lb", "parcelRequire2d1f", {})
 
 //# sourceMappingURL=web.34df32e0.js.map
