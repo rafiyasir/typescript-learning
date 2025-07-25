@@ -704,7 +704,7 @@ user.trigger("save");
 // }, 4000);
 // const newUser = new User({ name: "New", age: 333 });
 // newUser.save();
-const collection = new (0, _collection.Collection)("http://localhost:3000/users");
+const collection = new (0, _collection.Collection)("http://localhost:3000/users", (json)=>(0, _user.User).buildUser(json));
 collection.on("change", ()=>{
     console.log("Collection: ");
     console.log(collection);
@@ -5641,10 +5641,10 @@ parcelHelpers.export(exports, "Collection", ()=>Collection);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
 var _eventing = require("./Eventing");
-var _user = require("./User");
 class Collection {
-    constructor(rootUrl){
+    constructor(rootUrl, deserealize){
         this.rootUrl = rootUrl;
+        this.deserealize = deserealize;
         this.models = [];
         this.events = new (0, _eventing.Eventing)();
     }
@@ -5657,14 +5657,13 @@ class Collection {
     fetch() {
         (0, _axiosDefault.default).get(this.rootUrl).then((response)=>{
             response.data.forEach((data)=>{
-                const user = (0, _user.User).buildUser(data);
-                this.models.push(user);
+                this.models.push(this.deserealize(data));
             });
             this.trigger("change");
         });
     }
 }
 
-},{"axios":"h9cXK","./Eventing":"eBJmf","./User":"hjS3N","@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}]},["1IIxJ","gH3Lb"], "gH3Lb", "parcelRequire2d1f", {})
+},{"axios":"h9cXK","./Eventing":"eBJmf","@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}]},["1IIxJ","gH3Lb"], "gH3Lb", "parcelRequire2d1f", {})
 
 //# sourceMappingURL=web.34df32e0.js.map

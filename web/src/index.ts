@@ -1,5 +1,5 @@
 import { Collection } from "./models/Collection";
-import { User } from "./models/User";
+import { User, UserProps } from "./models/User";
 
 const user = User.buildUser({ id: 1, name: "Rafi", age: 30 });
 console.log(user.get("name"));
@@ -37,7 +37,10 @@ user.trigger("save");
 // const newUser = new User({ name: "New", age: 333 });
 // newUser.save();
 
-const collection = new Collection("http://localhost:3000/users");
+const collection = new Collection<User, UserProps>(
+	"http://localhost:3000/users",
+	(json: UserProps) => User.buildUser(json)
+);
 
 collection.on("change", () => {
 	console.log("Collection: ");
