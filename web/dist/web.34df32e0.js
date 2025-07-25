@@ -667,7 +667,6 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"gH3Lb":[function(require,module,exports,__globalThis) {
-var _collection = require("./models/Collection");
 var _user = require("./models/User");
 const user = (0, _user.User).buildUser({
     id: 1,
@@ -704,19 +703,20 @@ user.trigger("save");
 // }, 4000);
 // const newUser = new User({ name: "New", age: 333 });
 // newUser.save();
-const collection = new (0, _collection.Collection)("http://localhost:3000/users", (json)=>(0, _user.User).buildUser(json));
+const collection = (0, _user.User).buildUserCollection();
 collection.on("change", ()=>{
     console.log("Collection: ");
     console.log(collection);
 });
 collection.fetch();
 
-},{"./models/User":"hjS3N","./models/Collection":"6CYqD"}],"hjS3N":[function(require,module,exports,__globalThis) {
+},{"./models/User":"hjS3N"}],"hjS3N":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "User", ()=>User);
 var _apiSync = require("./ApiSync");
 var _attributes = require("./Attributes");
+var _collection = require("./Collection");
 var _eventing = require("./Eventing");
 var _model = require("./Model");
 const rootUrl = "http://localhost:3000/users";
@@ -724,9 +724,12 @@ class User extends (0, _model.Model) {
     static buildUser(attrs) {
         return new User(new (0, _attributes.Attributes)(attrs), new (0, _eventing.Eventing)(), new (0, _apiSync.ApiSync)(rootUrl));
     }
+    static buildUserCollection() {
+        return new (0, _collection.Collection)(rootUrl, (json)=>User.buildUser(json));
+    }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5","./Model":"khZhq","./ApiSync":"cZ7c5","./Attributes":"cDuwM","./Eventing":"eBJmf"}],"9vpc5":[function(require,module,exports,__globalThis) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5","./Model":"khZhq","./ApiSync":"cZ7c5","./Attributes":"cDuwM","./Eventing":"eBJmf","./Collection":"6CYqD"}],"9vpc5":[function(require,module,exports,__globalThis) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
