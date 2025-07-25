@@ -1,6 +1,6 @@
 import { User } from "./models/User";
 
-const user = new User({ id: 1, name: "Rafi", age: 30 });
+const user = User.buildUser({ id: 1, name: "Rafi", age: 30 });
 console.log(user.get("name"));
 console.log(user.get("age"));
 
@@ -13,7 +13,7 @@ user.on("change", () => {
 	console.log(user);
 });
 
-user.set({ name: "RAFI UZZAMA" });
+user.set({ name: "RAFI UZZAMAN" });
 user.set({ age: 29.6 });
 console.log(user.get("name"));
 user.on("save", () => {

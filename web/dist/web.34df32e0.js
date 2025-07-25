@@ -668,7 +668,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"gH3Lb":[function(require,module,exports,__globalThis) {
 var _user = require("./models/User");
-const user = new (0, _user.User)({
+const user = (0, _user.User).buildUser({
     id: 1,
     name: "Rafi",
     age: 30
@@ -683,7 +683,7 @@ user.on("change", ()=>{
     console.log(user);
 });
 user.set({
-    name: "RAFI UZZAMA"
+    name: "RAFI UZZAMAN"
 });
 user.set({
     age: 29.6
