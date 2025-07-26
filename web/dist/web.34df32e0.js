@@ -5678,6 +5678,14 @@ class UserForm {
     constructor(parent){
         this.parent = parent;
     }
+    eventMap() {
+        return {
+            "click:button": this.onButtonClick
+        };
+    }
+    onButtonClick() {
+        console.log("Button Clicked");
+    }
     template() {
         return `
       <div>
