@@ -710,7 +710,7 @@ collection.on("change", ()=>{
     console.log(collection);
 });
 collection.fetch();
-const userForm = new (0, _userForm.UserForm)(document.getElementById("root"));
+const userForm = new (0, _userForm.UserForm)(document.getElementById("root"), user);
 userForm.render();
 
 },{"./models/User":"hjS3N","./views/UserForm":"ebkXI"}],"hjS3N":[function(require,module,exports,__globalThis) {
@@ -5675,8 +5675,9 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "UserForm", ()=>UserForm);
 class UserForm {
-    constructor(parent){
+    constructor(parent, model){
         this.parent = parent;
+        this.model = model;
     }
     eventsMap() {
         return {
@@ -5694,6 +5695,8 @@ class UserForm {
         return `
       <div>
         <h1>User Form</h1>
+        <h2>Name: ${this.model.get("name")}</h2>
+        <p>Age: ${this.model.get("age")}</p>
         <input />
         <button>Click Me</button>
       </div>
