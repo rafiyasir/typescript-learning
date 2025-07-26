@@ -5681,16 +5681,20 @@ class UserForm {
     }
     eventsMap() {
         return {
-            "click:button": this.onButtonClick,
-            "mouseenter:h1": this.onHeaderMouseEnter
+            // "click:button": this.onButtonClick,
+            // "mouseenter:h1": this.onHeaderMouseEnter,
+            "click:.set-age": this.onSetAgeClick
         };
     }
-    onHeaderMouseEnter() {
-        console.log("H1 Mouse Enter");
+    onSetAgeClick() {
+        console.log("button was clicked");
     }
-    onButtonClick() {
-        console.log("Button Clicked");
-    }
+    // onHeaderMouseEnter(): void {
+    // 	console.log("H1 Mouse Enter");
+    // }
+    // onButtonClick(): void {
+    // 	console.log("Button Clicked");
+    // }
     template() {
         return `
       <div>
@@ -5699,6 +5703,7 @@ class UserForm {
         <p>Age: ${this.model.get("age")}</p>
         <input />
         <button>Click Me</button>
+        <button class="set-age">Set Random Age</button>
       </div>
     `;
     }
