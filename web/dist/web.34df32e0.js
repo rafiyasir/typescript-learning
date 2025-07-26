@@ -668,6 +668,7 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 
 },{}],"gH3Lb":[function(require,module,exports,__globalThis) {
 var _user = require("./models/User");
+var _userForm = require("./views/UserForm");
 const user = (0, _user.User).buildUser({
     id: 1,
     name: "Rafi",
@@ -709,8 +710,10 @@ collection.on("change", ()=>{
     console.log(collection);
 });
 collection.fetch();
+const userForm = new (0, _userForm.UserForm)(document.getElementById("root"));
+userForm.render();
 
-},{"./models/User":"hjS3N"}],"hjS3N":[function(require,module,exports,__globalThis) {
+},{"./models/User":"hjS3N","./views/UserForm":"ebkXI"}],"hjS3N":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "User", ()=>User);
@@ -5667,6 +5670,29 @@ class Collection {
     }
 }
 
-},{"axios":"h9cXK","./Eventing":"eBJmf","@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}]},["1IIxJ","gH3Lb"], "gH3Lb", "parcelRequire2d1f", {})
+},{"axios":"h9cXK","./Eventing":"eBJmf","@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}],"ebkXI":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "UserForm", ()=>UserForm);
+class UserForm {
+    constructor(parent){
+        this.parent = parent;
+    }
+    template() {
+        return `
+      <div>
+        <h1>User Form</h1>
+        <input />
+      </div>
+    `;
+    }
+    render() {
+        const templateElement = document.createElement("template");
+        templateElement.innerHTML = this.template();
+        if (this.parent) this.parent.append(templateElement.content);
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}]},["1IIxJ","gH3Lb"], "gH3Lb", "parcelRequire2d1f", {})
 
 //# sourceMappingURL=web.34df32e0.js.map

@@ -1,5 +1,5 @@
 export class UserForm {
-	constructor(public parent: Element) {}
+	constructor(public parent: Element | null) {}
 
 	template(): string {
 		return `
@@ -12,6 +12,6 @@ export class UserForm {
 	render(): void {
 		const templateElement = document.createElement("template");
 		templateElement.innerHTML = this.template();
-		this.parent.append(templateElement.content);
+		if (this.parent) this.parent.append(templateElement.content);
 	}
 }
