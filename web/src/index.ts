@@ -1,4 +1,5 @@
 import { User } from "./models/User";
+import { UserForm } from "./views/UserForm";
 
 const user = User.buildUser({ id: 1, name: "Rafi", age: 30 });
 console.log(user.get("name"));
@@ -43,3 +44,6 @@ collection.on("change", () => {
 	console.log(collection);
 });
 collection.fetch();
+
+const userForm = new UserForm(document.getElementById("root"));
+userForm.render();
