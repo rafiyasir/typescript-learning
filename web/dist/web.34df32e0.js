@@ -5684,6 +5684,13 @@ class UserForm {
     constructor(parent, model){
         this.parent = parent;
         this.model = model;
+        this.onSetNameClick = ()=>{
+            const input = this.parent?.querySelector("input");
+            const name = input?.value;
+            this.model.set({
+                name
+            });
+        };
         this.onSetAgeClick = ()=>{
             this.model.setRandomAge();
         };
@@ -5698,7 +5705,8 @@ class UserForm {
         return {
             // "click:button": this.onButtonClick,
             // "mouseenter:h1": this.onHeaderMouseEnter,
-            "click:.set-age": this.onSetAgeClick
+            "click:.set-age": this.onSetAgeClick,
+            "click:.set-name": this.onSetNameClick
         };
     }
     // onHeaderMouseEnter(): void {
@@ -5714,7 +5722,7 @@ class UserForm {
         <h2>Name: ${this.model.get("name")}</h2>
         <p>Age: ${this.model.get("age")}</p>
         <input />
-        <button>Click Me</button>
+        <button class="set-name">Change Name</button>
         <button class="set-age">Set Random Age</button>
       </div>
     `;
