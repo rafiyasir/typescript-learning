@@ -45,5 +45,10 @@ collection.on("change", () => {
 });
 collection.fetch();
 
-const userForm = new UserForm(document.getElementById("root"), user);
-userForm.render();
+const root = document.getElementById("root");
+if (root) {
+	const userForm = new UserForm(root, user);
+	userForm.render();
+} else {
+	throw new Error("Root Element Not Found");
+}

@@ -710,8 +710,11 @@ collection.on("change", ()=>{
     console.log(collection);
 });
 collection.fetch();
-const userForm = new (0, _userForm.UserForm)(document.getElementById("root"), user);
-userForm.render();
+const root = document.getElementById("root");
+if (root) {
+    const userForm = new (0, _userForm.UserForm)(root, user);
+    userForm.render();
+} else throw new Error("Root Element Not Found");
 
 },{"./models/User":"hjS3N","./views/UserForm":"ebkXI"}],"hjS3N":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
@@ -5685,11 +5688,15 @@ class UserForm {
         this.parent = parent;
         this.model = model;
         this.onSetNameClick = ()=>{
-            const input = this.parent?.querySelector("input");
-            const name = input?.value;
-            this.model.set({
-                name
-            });
+            if (this.parent) {
+                const input = this.parent?.querySelector("input");
+                if (input) {
+                    const name = input?.value;
+                    this.model.set({
+                        name
+                    });
+                }
+            }
         };
         this.onSetAgeClick = ()=>{
             this.model.setRandomAge();
