@@ -5678,10 +5678,14 @@ class UserForm {
     constructor(parent){
         this.parent = parent;
     }
-    eventMap() {
+    eventsMap() {
         return {
-            "click:button": this.onButtonClick
+            "click:button": this.onButtonClick,
+            "mouseenter:h1": this.onHeaderMouseEnter
         };
+    }
+    onHeaderMouseEnter() {
+        console.log("H1 Mouse Enter");
     }
     onButtonClick() {
         console.log("Button Clicked");
@@ -5691,12 +5695,21 @@ class UserForm {
       <div>
         <h1>User Form</h1>
         <input />
+        <button>Click Me</button>
       </div>
     `;
+    }
+    bindEvents(fragment) {
+        const eventsMap = this.eventsMap();
+        for(const eventKey in eventsMap){
+            const [eventName, selector] = eventKey.split(":");
+            fragment.querySelectorAll(selector).forEach((element)=>element.addEventListener(eventName, eventsMap[eventKey]));
+        }
     }
     render() {
         const templateElement = document.createElement("template");
         templateElement.innerHTML = this.template();
+        this.bindEvents(templateElement.content);
         if (this.parent) this.parent.append(templateElement.content);
     }
 }
