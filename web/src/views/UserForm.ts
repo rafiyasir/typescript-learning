@@ -11,9 +11,9 @@ export class UserForm {
 		};
 	}
 
-	onSetAgeClick(): void {
-		console.log("button was clicked");
-	}
+	onSetAgeClick = (): void => {
+		this.model.setRandomAge();
+	};
 
 	// onHeaderMouseEnter(): void {
 	// 	console.log("H1 Mouse Enter");

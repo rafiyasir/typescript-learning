@@ -730,6 +730,12 @@ class User extends (0, _model.Model) {
     static buildUserCollection() {
         return new (0, _collection.Collection)(rootUrl, (json)=>User.buildUser(json));
     }
+    setRandomAge() {
+        const age = Math.round(Math.random() * 100);
+        this.set({
+            age
+        });
+    }
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5","./Model":"khZhq","./ApiSync":"cZ7c5","./Attributes":"cDuwM","./Eventing":"eBJmf","./Collection":"6CYqD"}],"9vpc5":[function(require,module,exports,__globalThis) {
@@ -5678,6 +5684,9 @@ class UserForm {
     constructor(parent, model){
         this.parent = parent;
         this.model = model;
+        this.onSetAgeClick = ()=>{
+            this.model.setRandomAge();
+        };
     }
     eventsMap() {
         return {
@@ -5685,9 +5694,6 @@ class UserForm {
             // "mouseenter:h1": this.onHeaderMouseEnter,
             "click:.set-age": this.onSetAgeClick
         };
-    }
-    onSetAgeClick() {
-        console.log("button was clicked");
     }
     // onHeaderMouseEnter(): void {
     // 	console.log("H1 Mouse Enter");
