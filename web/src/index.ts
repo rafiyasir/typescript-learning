@@ -45,5 +45,5 @@ collection.on("change", () => {
 });
 collection.fetch();
 
-const userForm = new UserForm(document.getElementById("root"));
+const userForm = new UserForm(document.getElementById("root"), user);
 userForm.render();
