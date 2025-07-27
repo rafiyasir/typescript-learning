@@ -667,9 +667,11 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 }
 
 },{}],"gH3Lb":[function(require,module,exports,__globalThis) {
+var _collection = require("./models/Collection");
 var _user = require("./models/User");
 var _userEdit = require("./views/UserEdit");
 var _userForm = require("./views/UserForm");
+var _userList = require("./views/UserList");
 const user = (0, _user.User).buildUser({
     id: 1,
     name: "Rafi",
@@ -712,15 +714,22 @@ collection.on("change", ()=>{
 });
 collection.fetch();
 const root = document.getElementById("root");
+const usersList = new (0, _collection.Collection)("http://localhost:3000/users", (json)=>{
+    return (0, _user.User).buildUser(json);
+});
 if (root) {
     const userForm = new (0, _userForm.UserForm)(root, user);
     userForm.render();
     const userEdit = new (0, _userEdit.UserEdit)(root, user);
     userEdit.render();
+    usersList.on("change", ()=>{
+        new (0, _userList.UserList)(root, usersList).render();
+    });
+    usersList.fetch();
     console.log("UserEdit: ", userEdit);
 } else throw new Error("Root Element Not Found");
 
-},{"./models/User":"hjS3N","./views/UserForm":"ebkXI","./views/UserEdit":"ePQl0"}],"hjS3N":[function(require,module,exports,__globalThis) {
+},{"./models/User":"hjS3N","./views/UserForm":"ebkXI","./views/UserEdit":"ePQl0","./models/Collection":"6CYqD","./views/UserList":"6ot3o"}],"hjS3N":[function(require,module,exports,__globalThis) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "User", ()=>User);
@@ -5827,6 +5836,39 @@ class UserShow extends (0, _view.View) {
     }
 }
 
-},{"./View":"dvzuG","@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}]},["1IIxJ","gH3Lb"], "gH3Lb", "parcelRequire2d1f", {})
+},{"./View":"dvzuG","@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}],"6ot3o":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "UserList", ()=>UserList);
+var _collectionView = require("./CollectionView");
+var _userShow = require("./UserShow");
+class UserList extends (0, _collectionView.CollectionView) {
+    renderItem(model, itemParent) {
+        new (0, _userShow.UserShow)(itemParent, model).render();
+    }
+}
+
+},{"./CollectionView":"cm1dJ","./UserShow":"apokD","@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}],"cm1dJ":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "CollectionView", ()=>CollectionView);
+class CollectionView {
+    constructor(parent, collection){
+        this.parent = parent;
+        this.collection = collection;
+    }
+    render() {
+        this.parent.innerHTML = "";
+        const templateElement = document.createElement("template");
+        for (let model of this.collection.models){
+            const itemParent = document.createElement("div");
+            this.renderItem(model, itemParent);
+            templateElement.content.append(itemParent);
+        }
+        this.parent.append(templateElement.content);
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5"}]},["1IIxJ","gH3Lb"], "gH3Lb", "parcelRequire2d1f", {})
 
 //# sourceMappingURL=web.34df32e0.js.map
