@@ -5770,12 +5770,14 @@ class View {
             if (element) this.regions[key] = element;
         }
     }
+    onRender() {}
     render() {
         if (this.parent) this.parent.innerHTML = "";
         const templateElement = document.createElement("template");
         templateElement.innerHTML = this.template();
         this.bindEvents(templateElement.content);
         this.mapRegions(templateElement.content);
+        this.onRender();
         if (this.parent) this.parent.append(templateElement.content);
     }
 }
@@ -5784,6 +5786,8 @@ class View {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "UserEdit", ()=>UserEdit);
+var _userForm = require("./UserForm");
+var _userShow = require("./UserShow");
 var _view = require("./View");
 class UserEdit extends (0, _view.View) {
     regionsMap() {
@@ -5792,13 +5796,34 @@ class UserEdit extends (0, _view.View) {
             userForm: ".user-form"
         };
     }
+    onRender() {
+        new (0, _userShow.UserShow)(this.regions.userShow, this.model).render();
+        new (0, _userForm.UserForm)(this.regions.userForm, this.model).render();
+    }
     template() {
         return `
       <div>
-        <div class="user-show></div>
-        <div class="user-form></div>
+        <div class="user-show"></div>
+        <div class="user-form"></div>
       </div>
     `;
+    }
+}
+
+},{"./View":"dvzuG","@parcel/transformer-js/src/esmodule-helpers.js":"9vpc5","./UserForm":"ebkXI","./UserShow":"apokD"}],"apokD":[function(require,module,exports,__globalThis) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "UserShow", ()=>UserShow);
+var _view = require("./View");
+class UserShow extends (0, _view.View) {
+    template() {
+        return `
+      <div>
+        <h1>User Detail:</h1>
+        <h3>Name: ${this.model.get("name")}</h3>
+        <p>Age: ${this.model.get("age")}</p>
+      </div>
+      `;
     }
 }
 

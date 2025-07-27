@@ -45,12 +45,16 @@ export abstract class View<T extends Model<K>, K extends HasId> {
 		}
 	}
 
+	onRender(): void {}
+
 	render(): void {
 		if (this.parent) this.parent.innerHTML = "";
 		const templateElement = document.createElement("template");
 		templateElement.innerHTML = this.template();
 		this.bindEvents(templateElement.content);
 		this.mapRegions(templateElement.content);
+
+		this.onRender();
 		if (this.parent) this.parent.append(templateElement.content);
 	}
 }
