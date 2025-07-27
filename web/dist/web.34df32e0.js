@@ -5690,7 +5690,8 @@ class UserForm extends (0, _view.View) {
             // "click:button": this.onButtonClick,
             // "mouseenter:h1": this.onHeaderMouseEnter,
             "click:.set-age": this.onSetAgeClick,
-            "click:.set-name": this.onSetNameClick
+            "click:.set-name": this.onSetNameClick,
+            "click:.save-model": this.onSaveClick
         };
     }
     // onHeaderMouseEnter(): void {
@@ -5702,12 +5703,10 @@ class UserForm extends (0, _view.View) {
     template() {
         return `
       <div>
-        <h1>User Form</h1>
-        <h2>Name: ${this.model.get("name")}</h2>
-        <p>Age: ${this.model.get("age")}</p>
-        <input />
+        <input placeholder="${this.model.get("name")}"/>
         <button class="set-name">Change Name</button>
         <button class="set-age">Set Random Age</button>
+        <button class="save-model">Save</button>
       </div>
     `;
     }
@@ -5724,6 +5723,8 @@ class UserForm extends (0, _view.View) {
             }
         }, this.onSetAgeClick = ()=>{
             this.model.setRandomAge();
+        }, this.onSaveClick = ()=>{
+            this.model.save();
         };
     }
 }
