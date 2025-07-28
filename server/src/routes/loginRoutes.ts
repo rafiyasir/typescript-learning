@@ -1,9 +1,25 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-	res.send("HI router");
+router.get("/login", (req: Request, res: Response) => {
+	res.send(`
+      <form method="POST">
+        <p>
+          <label>Email</label>
+          <input name="email" />
+        </p>
+        <p>
+          <label>Password</label>
+          <input name="password" type="password" />
+        </p>
+        <button>Submit</button>
+      </form>
+    `);
+});
+router.post("/login", (req: Request, res: Response) => {
+	const { email, password } = req.body;
+	res.send(email + password);
 });
 
 export { router };
