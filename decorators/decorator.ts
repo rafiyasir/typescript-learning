@@ -5,14 +5,14 @@ class Boat {
 		return `The boats color is ${this.color}`;
 	}
 
+	@logError
 	pilot(): void {
+		throw new Error();
 		console.log("swish");
 	}
 }
 
-function testDecorator(target: any, key: string) {
+function logError(target: any, key: string) {
 	console.log("Target: ", target);
 	console.log("Key: ", key);
 }
-
-testDecorator(Boat.prototype, "pilot");
