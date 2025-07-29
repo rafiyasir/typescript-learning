@@ -11,7 +11,7 @@ router.get("/login", (req: Request, res: Response) => {
       <form method="POST">
         <p>
           <label>Email</label>
-          <input name="emai" />
+          <input name="email" />
         </p>
         <p>
           <label>Password</label>
@@ -23,12 +23,12 @@ router.get("/login", (req: Request, res: Response) => {
 });
 router.post("/login", (req: RequestWithBody, res: Response) => {
 	const { email, password } = req.body;
-	res.send(email);
-	// if (email) {
-	// 	res.send(email + password);
-	// } else {
-	// 	res.send("Email is not defined");
-	// }
+	if (email && password && email === "hi@rafi.dev") {
+		req.session = { login: true };
+		res.redirect("/");
+	} else {
+		res.send("invalid email or password");
+	}
 });
 
 export { router };
