@@ -12,7 +12,16 @@ class Boat {
 	}
 }
 
-function logError(target: any, key: string) {
-	console.log("Target: ", target);
-	console.log("Key: ", key);
+function logError(target: any, key: string, desc: PropertyDescriptor) {
+	const method = desc.value;
+
+	desc.value = function () {
+		try {
+			method();
+		} catch (error) {
+			console.log("Oops, boat was sunk");
+		}
+	};
 }
+
+new Boat().pilot();
