@@ -30,6 +30,16 @@ let LoginController = class LoginController {
       </form>
     `);
     }
+    postLogin(req, res) {
+        const { email, password } = req.body;
+        if (email === "hi@rafi.dev") {
+            req.session = { login: true };
+            res.redirect("/");
+        }
+        else {
+            res.send("invalid email or password");
+        }
+    }
 };
 __decorate([
     (0, decorators_1.get)("/login"),
@@ -38,6 +48,13 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", void 0)
 ], LoginController.prototype, "getLogin", null);
+__decorate([
+    (0, decorators_1.post)("/login"),
+    (0, decorators_1.bodyValidator)("email", "password"),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", void 0)
+], LoginController.prototype, "postLogin", null);
 LoginController = __decorate([
     (0, decorators_1.controller)("/auth")
 ], LoginController);
