@@ -38,28 +38,6 @@ exports.router = router;
 // 		res.send("invalid email or password");
 // 	}
 // });
-router.get("/", (req, res) => {
-    if (req.session && req.session.login) {
-        res.send(`
-        <div>
-          <div>You are logged in</div>
-          <a href="/logout">Logout</a>
-        </div>
-      `);
-    }
-    else {
-        res.send(`
-        <div>
-          <div>You are not Logged in </div>
-          <a href="/auth/login">Login</a>
-        </div>
-      `);
-    }
-});
-router.get("/logout", (req, res) => {
-    req.session = undefined;
-    res.redirect("/");
-});
 router.get("/protected", requireAuth, (req, res) => {
     res.send("Welcome");
 });
