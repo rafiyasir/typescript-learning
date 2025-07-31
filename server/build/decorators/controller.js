@@ -6,13 +6,16 @@ const AppRouter_1 = require("../../AppRouter");
 const MetadataKeys_1 = require("./MetadataKeys");
 function bodyValidators(keys) {
     return function (req, res, next) {
+        if (!["POST", "PATCH", "PUT"].includes(req.method)) {
+            next();
+        }
         if (!req.body) {
             res.status(422).send("Invalid Request");
             return;
         }
         for (let key of keys) {
             if (!req.body[key]) {
-                res.status(422).send("Invalid Reques");
+                res.status(422).send(`Missing Key ${key}`);
                 return;
             }
         }
