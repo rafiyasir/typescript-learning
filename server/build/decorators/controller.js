@@ -9,7 +9,8 @@ function controller(routePrefix) {
         Object.getOwnPropertyNames(target.prototype).forEach((key) => {
             const routeHandler = target.prototype[key];
             const path = Reflect.getMetadata("path", target.prototype, key);
-            router.get(`${routePrefix}${path}`, routeHandler);
+            const method = Reflect.getMetadata("method", target.prototype, key);
+            router[method](`${routePrefix}${path}`, routeHandler);
         });
     };
 }
