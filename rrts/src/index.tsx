@@ -8,28 +8,31 @@ interface AppProps {
 interface AppState {
 	counter: number;
 }
-class App extends React.Component<AppProps, AppState> {
-	// state = { counter: 0 };
-	constructor(props: AppProps) {
-		super(props);
+const App = (props: AppProps): JSX.Element => {
+	return <div>{props.color}</div>;
+};
+// class App extends React.Component<AppProps, AppState> {
+// 	// state = { counter: 0 };
+// 	constructor(props: AppProps) {
+// 		super(props);
 
-		this.state = { counter: 0 };
-	}
-	incrementCounter = () => {
-		this.setState({ counter: this.state.counter + 1 });
-	};
-	decrementCounter = () => {
-		this.setState({ counter: this.state.counter - 1 });
-	};
-	render() {
-		return (
-			<div>
-				<button onClick={this.incrementCounter}>Increment</button>
-				<button onClick={this.decrementCounter}>Decrement</button>
-				{this.state.counter}
-			</div>
-		);
-	}
-}
+// 		this.state = { counter: 0 };
+// 	}
+// 	incrementCounter = () => {
+// 		this.setState({ counter: this.state.counter + 1 });
+// 	};
+// 	decrementCounter = () => {
+// 		this.setState({ counter: this.state.counter - 1 });
+// 	};
+// 	render() {
+// 		return (
+// 			<div>
+// 				<button onClick={this.incrementCounter}>Increment</button>
+// 				<button onClick={this.decrementCounter}>Decrement</button>
+// 				{this.state.counter}
+// 			</div>
+// 		);
+// 	}
+// }
 
 ReactDOM.render(<App color="red" />, document.querySelector("#root"));
