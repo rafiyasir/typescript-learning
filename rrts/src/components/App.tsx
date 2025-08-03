@@ -8,8 +8,22 @@ interface AppProps {
   fetchTodos(): any;
 }
 export class _App extends React.Component<AppProps> {
+  onButtonClick = () => {
+    this.props.fetchTodos();
+  };
+  renderList(): JSX.Element[] {
+    return this.props.todos.map((todo: Todo) => (
+      <li key={todo.id}>{todo.title}</li>
+    ));
+  }
+
   render(): React.ReactNode {
-    return <div>Hi there </div>;
+    return (
+      <>
+        <button onClick={this.onButtonClick}>Fetch</button>
+        {this.renderList()}
+      </>
+    );
   }
 }
 
