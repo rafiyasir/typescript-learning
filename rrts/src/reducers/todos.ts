@@ -1,5 +1,4 @@
-import { FetchTodosAction, Todo } from "../components/actions"
-import { ActionTypes } from "../components/actions/types"
+import { FetchTodosAction, Todo, ActionTypes } from "../components/actions"
 
 export const todosReducer = (state:Todo[]=[], action:FetchTodosAction) => {
     switch(action.type) {
