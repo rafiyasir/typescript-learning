@@ -3,6 +3,12 @@ interface  RepositoriesState {
     error: string | null;
     data: string[]
 }
+
+interface Action {
+    type: string,
+    payload?:any
+}
+
 const reducer = (state:RepositoriesState, action:any ):RepositoriesState => {
     switch(action.type){
         case 'search_repositories':
